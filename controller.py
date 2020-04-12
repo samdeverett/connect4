@@ -1,11 +1,11 @@
 from games import Connect4
 from interfaces import Connect4WebInterface
-from agents import BasicAgent
+from agents import RandomAgent, MinimaxAgent
 import time
 import threading
 
 game = Connect4()
-agent = BasicAgent(game=game)
+agent = MinimaxAgent(game=game)
 
 def alternate_turns():
     while True:
@@ -16,7 +16,7 @@ def alternate_turns():
         # player 0 is human on interface
         elif game.player == 0:
             time.sleep(0.1)
-        
+
         # player 1 is agent
         elif game.player == 1:
             agent.make_move()

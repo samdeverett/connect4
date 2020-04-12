@@ -23,6 +23,7 @@ class Connect4WebInterface_(App):
         width, height = 800, 600    # Set board width and height
 
         svg = gui.Svg(width=width, height=height)
+        svg.style['background-color'] = 'yellow'
         r = 35    # Set radius of slots
         ys = np.round(np.linspace(2*r, height-2*r, self.game.dim[0])).astype(int)
         xs = np.round(np.linspace(2*r, width-2*r, self.game.dim[1])).astype(int)
@@ -73,7 +74,7 @@ class Connect4WebInterface_(App):
         self.game.next_turn()
 
     def update_board(self):
-        
+
         for data, circ in zip(self.game.board.ravel(), self.grid.ravel()):
             if data == -1:
                 circ.style['fill'] = 'white'

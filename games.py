@@ -3,7 +3,7 @@ import numpy as np
 class Connect4():
 
     def __init__(self):
-        
+
         # Parameters
         self.dim = 6, 7
 
@@ -24,7 +24,7 @@ class Connect4():
         # Can't make move if game over
         if self.winner is not None:
             return
-        
+
         # Can't make two moves in one turn
         if self.turn_played:
             return
@@ -32,7 +32,7 @@ class Connect4():
         # Player clicking filled slot does nothing
         if self.board[pos] != -1:
             return
-        
+
         is_bottom = pos[0] == self.dim[0] - 1
         # Player clicking non-bottom slot does nothing
         if not is_bottom and np.any(self.board[pos[0]+1:, pos[1]] == -1):
@@ -46,13 +46,15 @@ class Connect4():
     def is_available_position(self, pos):
         is_open = self.board[pos] == -1
         empty_below = np.any(self.board[pos[0]+1:, pos[1]] == -1)
-        
+
         return is_open and (not empty_below)
 
     def check_gameover(self):
         for plyr in [0, 1]:
-            if self.didWin(self.board == plyr):
+            if self.did_win(self.board == plyr):
                 self.winner = plyr
+                return True
+        # Need a case for tie
 
     def reset(self):
         self.board = (np.zeros(self.dim) - 1).astype(int)
@@ -61,7 +63,7 @@ class Connect4():
         self.winner = None
         self.next_turn()
 
-    def didWin(self, grid):
+    def did_win(self, grid):
 
         def get_depth(pos, grid, covered=None, steps=None):
             pos = np.array(pos)
@@ -100,4 +102,3 @@ class Connect4():
                             return True
 
         return False
-
